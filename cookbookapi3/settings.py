@@ -38,6 +38,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['8000-agnesgran-cookbookapi3-u9k8r7hmh9p.ws.codeinstitute-ide.net']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-agnesgran-cookbookapi3-u9k8r7hmh9p.ws.codeinstitute-ide.net',
+]
+
 
 # Application definition
 
