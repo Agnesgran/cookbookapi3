@@ -3,6 +3,7 @@ from rest_framework import generics, filters
 from cookbookapi3.permissions import IsOwnerOrReadOnly
 from .models import Profile
 from .serializers import ProfileSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class ProfileList(generics.ListAPIView):
@@ -14,7 +15,8 @@ class ProfileList(generics.ListAPIView):
     )
     serializer_class = ProfileSerializer
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        DjangoFilterBackend
     ]
     ordering_fields = [
         'posts_count',
@@ -23,6 +25,10 @@ class ProfileList(generics.ListAPIView):
         'owner__following__created_at',
         'owner__followed__created_at',
     ]
+    filterset_fields = [
+        'owner__following__followed__profile'
+    ]
+
 
 
 
