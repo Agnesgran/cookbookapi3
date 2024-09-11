@@ -118,15 +118,10 @@ MIDDLEWARE = [
 ]
 
 if 'CLIENT_ORIGIN_DEV' in os.environ:
-    extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE)
-    if extracted_url:
-        extracted_url = extracted_url.group(0)
-        print(f"Extracted URL: {extracted_url}")  # This will log the extracted URL
-        CORS_ALLOWED_ORIGIN_REGEXES = [
-            rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
-        ]
-    else:
-        print("No URL was extracted.")  # Log if the URL extraction fails
+    extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
+    ]
 else:
     CORS_ALLOWED_ORIGIN_REGEXES = [
         r"^https://.*\.codeinstitute-ide\.net$",
