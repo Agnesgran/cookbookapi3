@@ -44,4 +44,4 @@ class Recipe(models.Model):
         unique_together = ['owner', 'name']  
 
     def __str__(self):
-        return f'{self.name} by {self.owner}'
+        return f'{self.name} by {self.owner.username}'
