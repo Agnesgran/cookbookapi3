@@ -1,3 +1,25 @@
-from django.shortcuts import render
+from rest_framework import generics, permissions, filters
+from django_filters.rest_framework import DjangoFilterBackend
+from .models import Recipe
+from .serializers import RecipeSerializer
+from .permissions import IsRecipeOwner
 
-# Create your views here.
+class RecipeList(generics.ListCreateAPIView):
+    serializer_class = RecipeSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ['name', 'ingredients', 'instructions']
+    filterset_fields = ['category'] 
+
+    def get_queryset(self):
+        return Recipe.objects.filter(owner=self.request.user).order_by('-created_at')
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = RecipeSerializer
+    permission_classes = [IsRecipeOwner]
+
+    def get_queryset(self):
+        return Recipe.objects.filter(owner=self.request.user)
