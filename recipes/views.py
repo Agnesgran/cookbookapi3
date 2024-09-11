@@ -9,10 +9,12 @@ class RecipeList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsRecipeOwnerOrAuthenticated]
     filter_backends = [filters.OrderingFilter, filters.SearchFilter, DjangoFilterBackend]
     search_fields = ['name', 'ingredients', 'instructions']
-    filterset_fields = ['category'] 
+    filterset_fields = ['category']
 
     def get_queryset(self):
-        return Recipe.objects.filter(owner=self.request.user).order_by('-created_at')
+        if self.request.user.is_authenticated:
+            return Recipe.objects.filter(owner=self.request.user).order_by('-created_at')
+        return Recipe.objects.none()
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -22,4 +24,6 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsRecipeOwnerOrAuthenticated]
 
     def get_queryset(self):
-        return Recipe.objects.filter(owner=self.request.user)
+        if self.request.user.is_authenticated:
+            return Recipe.objects.filter(owner=self.request.user)
+        return Recipe.objects.none()
