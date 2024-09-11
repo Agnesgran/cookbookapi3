@@ -64,7 +64,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['8000-agnesgran-cookbookapi3-u9k8r7hmh9p.ws.codeinstitute-ide.net','cookbookapi3.herokuapp.com','localhost']
+ALLOWED_HOSTS = ['8000-agnesgran-cookbookapi3-u9k8r7hmh9p.ws.codeinstitute-ide.net','cookbookapi3.herokuapp.com','localhost','cookbookapi3-5d094bdeaa98.herokuapp.com']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-agnesgran-cookbookapi3-u9k8r7hmh9p.ws.codeinstitute-ide.net',
@@ -122,8 +122,9 @@ if 'CLIENT_ORIGIN' in os.environ:
     ]
 else:
     CORS_ALLOWED_ORIGIN_REGEXES = [
-        r"^https://.*\.gitpod\.io$",
-    ]
+    r"^https://.*\.codeinstitute-ide\.net$",
+    r"^https://.*\.gitpod\.io$",
+]
 
 CORS_ALLOW_CREDENTIALS = True
 
