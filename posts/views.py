@@ -7,7 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 
 class PostList(generics.ListCreateAPIView):
- 
+
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Post.objects.annotate(
@@ -25,7 +25,10 @@ class PostList(generics.ListCreateAPIView):
         'likes__created_at',
     ]
     search_fields = ['owner__username', 'recipe_name']
-    filterset_fields = ['owner__profile', 'owner__followed__owner__profile', 'likes__owner__profile']
+    filterset_fields = [
+        'owner__profile', 'owner__followed__owner__profile',
+        'likes__owner__profile'
+    ]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

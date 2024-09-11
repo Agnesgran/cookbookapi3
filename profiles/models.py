@@ -2,11 +2,13 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
+
 COOKING_LEVEL_CHOICES = [
     ('beginner', 'Beginner'),
     ('intermediate', 'Intermediate'),
     ('professional', 'Professional'),
 ]
+
 
 class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -33,5 +35,6 @@ class Profile(models.Model):
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(owner=instance)
+
 
 post_save.connect(create_profile, sender=User)
