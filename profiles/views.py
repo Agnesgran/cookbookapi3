@@ -32,9 +32,6 @@ class ProfileList(generics.ListAPIView):
 
 
 
-
-
-
 class ProfileDetail(generics.RetrieveUpdateAPIView):
 
     permission_classes = [IsOwnerOrReadOnly]
