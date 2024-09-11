@@ -1,131 +1,149 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Cookbook API
 
-Welcome Agnes Gran,
+The Cookbook API is a back-end service for a recipe management application. It provides a RESTful API for handling user profiles, posts (formerly recipes), comments, likes, and followers. This API allows third-party applications to interact with the database, enabling functionalities like recipe management, user interactions, and more.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+## Features
 
-You can safely delete this README.md file or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **June 18, 2024**
+### Profile Management
+- **List Profiles**: Retrieve a list of all user profiles with associated statistics.
+- **Retrieve Profile**: Get detailed information about a specific user profile.
+- **Update Profile**: Update user profile details.
+- **Create Profile**: Create a new user profile.
 
-## Gitpod Reminders
+### Post Management
+- **List Posts**: Get a list of all posts with annotations for likes and comments.
+- **Retrieve Post**: Get detailed information about a specific post.
+- **Create Post**: Add a new post, including recipe details.
+- **Update Post**: Modify an existing post.
+- **Delete Post**: Remove a post from the database.
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+### Comment Management
+- **List Comments**: Retrieve comments for a specific post.
+- **Create Comment**: Add a new comment to a post.
+- **Retrieve Comment**: Get detailed information about a specific comment.
+- **Update Comment**: Modify an existing comment.
+- **Delete Comment**: Remove a comment from the database.
 
-`python3 -m http.server`
+### Like Management
+- **List Likes**: Retrieve all likes for posts.
+- **Create Like**: Like a post.
+- **Delete Like**: Remove a like from a post.
 
-A blue button should appear to click: _Make Public_,
+### Follower Management
+- **List Followers**: Get a list of all followers for a user.
+- **Create Follower**: Follow a user.
+- **Delete Follower**: Unfollow a user.
 
-Another blue button should appear to click: _Open Browser_.
+## Authentication and User Capabilities
 
-To run a backend Python file, type `python3 app.py` if your Python file is named `app.py`, of course.
+### Authentication
+- **Login**: Secure user authentication to access API endpoints.
+- **Logout**: End the user session.
+- **Sign Up**: Register a new user.
 
-A blue button should appear to click: _Make Public_,
+### User Capabilities
+- **Profile Management**: Users can create, update, and view their profiles.
+- **Post Management**: Users can add, update, and delete their own posts, which include recipe details like ingredients and instructions.
+- **Commenting**: Users can add, edit, and delete comments on posts.
+- **Liking Posts**: Users can like and unlike posts.
+- **Following**: Users can follow and unfollow other users.
 
-Another blue button should appear to click: _Open Browser_.
+## Technologies
 
-By Default, Gitpod gives you superuser security privileges. Therefore, you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+- **Backend Framework**: Django (Python)
+- **Database**: PostgreSQL
+- **Deployment**: Heroku
 
-To log into the Heroku toolbelt CLI:
+## Testing
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+### Manual Testing
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you, so do not share it. If you accidentally make it public, you can create a new one with _Regenerate API Key_.
+| Test Case                             | Description                                                | Result         |
+|---------------------------------------|------------------------------------------------------------|----------------|
+| **Profile List Endpoint**              | Verify that the list of profiles can be retrieved.         | Pass           |
+| **Profile Detail Endpoint**            | Ensure details of a single profile are correctly displayed. | Pass           |
+| **Post List Endpoint**                 | Check if posts are listed with annotations.               | Pass           |
+| **Post Detail Endpoint**               | Confirm detailed view of a specific post.                 | Pass           |
+| **Comment Creation**                  | Test if new comments can be added to posts.               | Pass           |
+| **Like Management**                   | Ensure likes can be added and removed from posts.         | Pass           |
+| **Follower Management**               | Verify users can follow and unfollow other users.         | Pass           |
+| **Authentication**                    | Test login, registration, and logout functionalities.      | Pass           |
 
-### Connecting your Mongo database
 
-- **Connect to Mongo CLI on a IDE**
-- navigate to your MongoDB Clusters Sandbox
-- click **"Connect"** button
-- select **"Connect with the MongoDB shell"**
-- select **"I have the mongo shell installed"**
-- choose **mongosh (2.0 or later)** for : **"Select your mongo shell version"**
-- choose option: **"Run your connection string in your command line"**
-- in the terminal, paste the copied code `mongo "mongodb+srv://<CLUSTER-NAME>.mongodb.net/<DBname>" --apiVersion 1 --username <USERNAME>`
-  - replace all `<angle-bracket>` keys with your own data
-- enter password _(will not echo **\*\*\*\*** on screen)_
 
-------
+### Bugs Resolved
 
-## Release History
+| Issue Description                                                   | Resolution                                                                                          |
+|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| **CSRF Failed: Origin Checking Failed**                            | Added the appropriate domains to `CSRF_TRUSTED_ORIGINS` in `settings.py` to include both localhost and the deployed URL. |
+| **CORS Configuration Issues**                                      | Updated `CORS_ALLOWED_ORIGIN_REGEXES` to include correct regex patterns for development (Gitpod) and production environments. Ensured correct `CLIENT_ORIGIN_DEV` handling. |
+| **400 Bad Request on Heroku Deployment**                           | Verified and corrected `ALLOWED_HOSTS` and other environment variables on Heroku. Ensured they are set without extraneous quotation marks. |
+| **Duplicate CORS Allowed Origin Regexes**                          | Removed duplicated `CORS_ALLOWED_ORIGIN_REGEXES` and ensured only the necessary settings are present according to the latest instructions. |
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
 
-**June 18, 2024,** Add Mongo back into template
 
-**June 14, 2024,** Temporarily remove Mongo until the key issue is resolved
+### Bugs Unresolved
 
-**May 28 2024:** Fix Mongo and Links installs
+- No known unresolved bugs at this time.
 
-**April 26 2024:** Update node version to 16
+### Code Validation
 
-**September 20 2023:** Update Python version to 3.9.17.
+| Validator        | Results                                                          |
+|------------------|------------------------------------------------------------------|
+| **Python**       | No issues detected using `pep8ci` for style guide compliance.   |
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+## Version Control
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+- **Git & GitHub**: Git and GitHub are used for version control throughout the development process. Commit messages are used to document changes and progress, with regular commits for feature additions, bug fixes, and updates.
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+## Deployment
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+### Deployment Process
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+To deploy the API on Heroku, follow these steps:
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+1. **Create and Configure Heroku App:**
+   - Sign up or log in to [Heroku](https://www.heroku.com/).
+   - Create a new app from the Heroku Dashboard, specifying a unique name and region.
+   - Add necessary Config Vars:
+     - `DATABASE_URL`: Your PostgreSQL database URL.
+     - `SECRET_KEY`: A new, secure key for production.
+     - `CLOUDINARY_URL`: Your Cloudinary URL for image hosting.
+     - Optionally, add `ALLOWED_HOST` and `CLIENT_ORIGIN_DEV`.
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+2. **Prepare Your Project:**
+   - Install dependencies:
+     ```bash
+     pip3 install dj_database_url psycopg2 gunicorn django-cors-headers
+     ```
+   - Update `settings.py` to configure database, CORS, and JWT settings.
+   - Create a `Procfile` with the following content:
+     ```
+     release: python manage.py makemigrations && python manage.py migrate
+     web: gunicorn cookbookapi3.wsgi
+     ```
+   - Update `requirements.txt`:
+     ```bash
+     pip freeze --local > requirements.txt
+     ```
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+3. **Deploy to Heroku:**
+   - Connect your GitHub repository to the Heroku app.
+   - Deploy the app manually or enable automatic deploys.
+   - Run migrations in the terminal:
+     ```
+     python manage.py migrate
+     ```
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+4. **Monitor and Scale:**
+   - Use the Heroku Dashboard to monitor performance and scale dynos as needed.
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+## Credits
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+- **References:**
+  - [Django Documentation](https://docs.djangoproject.com/en/stable/)
+  - [Django REST Framework Documentation](https://www.django-rest-framework.org/)
+  - [Heroku Documentation](https://devcenter.heroku.com/articles/getting-started-with-django)
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
