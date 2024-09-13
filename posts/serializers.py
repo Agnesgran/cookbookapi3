@@ -38,13 +38,6 @@ class PostSerializer(serializers.ModelSerializer):
             return like.id if like else None
         return None
 
-    def create(self, validated_data):
-        try:
-            return super().create(validated_data)
-        except serializers.ValidationError as e:
-            print("Validation Error:", e.detail)
-            raise
-
     class Meta:
         model = Post
         fields = [
