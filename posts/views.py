@@ -42,3 +42,11 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
         likes_count=Count('likes', distinct=True),
         comments_count=Count('comment', distinct=True)
     ).order_by('-created_at')
+
+    def perform_create(self, serializer):
+        try:
+            serializer.save(owner=self.request.user)
+        except Exception as e:
+            # Log the exception and handle it gracefully
+            print(f"Error while saving post: {e}")
+            raise
