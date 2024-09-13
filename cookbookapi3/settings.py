@@ -69,6 +69,7 @@ ALLOWED_HOSTS = ['8000-agnesgran-cookbookapi3-u9k8r7hmh9p.ws.codeinstitute-ide.n
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-agnesgran-cookbookapi3-u9k8r7hmh9p.ws.codeinstitute-ide.net',
+    'https://3000-agnesgran-thecookbook-2q2ctlle5mw.ws.codeinstitute-ide.net',
 ]
 
 
@@ -116,6 +117,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'https://3000-agnesgran-thecookbook-2q2ctlle5mw.ws.codeinstitute-ide.net',  # Explicitly allow your frontend domain
 ]
 
 if 'CLIENT_ORIGIN_DEV' in os.environ:
