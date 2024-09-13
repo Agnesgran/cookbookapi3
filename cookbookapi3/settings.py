@@ -120,7 +120,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://3000-agnesgran-thecookbook-2q2ctlle5mw.ws.codeinstitute-ide.net',  # Explicitly allow your frontend domain
+    'https://3000-agnesgran-thecookbook-2q2ctlle5mw.ws.codeinstitute-ide.net',
 ]
 
 if 'CLIENT_ORIGIN_DEV' in os.environ:
